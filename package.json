@@ -1,0 +1,30 @@
+{
+  "name": "mongoose-schema-extend",
+  "version": "0.1.0",
+  "description": "mongoose schema inheritance and discriminator key extension",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "homepage": "https://github.com/briankircho/mongoose-schema-extend",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/briankircho/mongoose-schema-extend.git"
+  },
+  "keywords": [
+    "mongoose",
+    "inheritance",
+    "schema",
+    "discriminator",
+    "model"
+  ],
+  "author": "Brian Kirchoff <briankircho@gmail.com>",
+  "license": "BSD",
+  "dependencies": {
+    "clone": "~0.1.0",
+    "mocha": "~1.3.2"
+  },
+  "devDependencies": {
+    "should": "~1.1.0"
+  }
+}
