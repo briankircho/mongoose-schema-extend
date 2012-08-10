@@ -11,6 +11,15 @@ Schema.prototype.extend = function(obj, options) {
   // Deep clone the existing schema so we can add without changing it
   var newSchema = clone(this);
 
+  // Fix for callQueue arguments, todo: fix clone implementation
+  newSchema.callQueue.forEach(function(k) {
+    var args = [];
+    for(var i in k[1]) {
+      args.push(k[1][i]);
+    }
+    k[1] = args;
+  });
+
   // Override the existing options with any newly supplied ones
   for(var k in options) {
     newSchema.options[k] = options[k];
