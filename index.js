@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    clone = require('clone');
+    owl = require('owl-deepcopy');
 
 var Schema = mongoose.Schema,
     Model = mongoose.Model;
@@ -8,8 +8,9 @@ var Schema = mongoose.Schema,
  * Add a new function to the schema prototype to create a new schema by extending an existing one
  */
 Schema.prototype.extend = function(obj, options) {
+  
   // Deep clone the existing schema so we can add without changing it
-  var newSchema = clone(this);
+  var newSchema = owl.deepCopy(this);
 
   // Fix for callQueue arguments, todo: fix clone implementation
   newSchema.callQueue.forEach(function(k) {
