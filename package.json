@@ -25,10 +25,10 @@
   ],
   "license": "BSD",
   "dependencies": {
-    "owl-deepcopy": "~0.0.1",
-    "mocha": "~1.3.2"
+    "owl-deepcopy": "~0.0.1"
   },
   "devDependencies": {
+    "mocha": "~1.3.2",
     "should": "~1.1.0"
   }
 }
