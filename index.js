@@ -36,8 +36,11 @@ Schema.prototype.extend = function(obj, options) {
     newSchema.add(discriminatorField);
 
     // When new documents are saved, include the model name in the discriminatorField
+    // if it is not set already.
     newSchema.pre('save', function(next) {
-      this[key] = this.constructor.modelName;
+      if(this[key] === null || this[key] === undefined) {
+        this[key] = this.constructor.modelName;
+      }
       next();
     });
   }
