@@ -1,6 +1,6 @@
 {
   "name": "mongoose-schema-extend",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "mongoose schema inheritance and discriminator key extension",
   "main": "index.js",
   "scripts": {
