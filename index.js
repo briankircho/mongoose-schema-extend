@@ -58,7 +58,7 @@ Model.prototype.init = function(doc, query, fn) {
 
     // If the discriminatorField contains a model name, we set the documents prototype to that model
     var type = doc[key];
-    var model = this.db.models[type];
+    var model = this.db.model(type);
     if(model) {
       var newFn = function() {
         // this is pretty ugly, but we need to run the code below before the callback
