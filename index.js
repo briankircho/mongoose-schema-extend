@@ -58,8 +58,9 @@ Model.prototype.init = function(doc, query, fn) {
 
     // If the discriminatorField contains a model name, we set the documents prototype to that model
     var type = doc[key];
-    var model = this.db.model(type);
-    if(model) {
+    if(type) {
+      // this will throw exception if the model isn't registered
+      var model = this.db.model(type);
       var newFn = function() {
         // this is pretty ugly, but we need to run the code below before the callback
         process.nextTick(function() {
@@ -72,7 +73,6 @@ Model.prototype.init = function(doc, query, fn) {
       obj.__proto__ = model.prototype;
       return obj;
     }
-
   }
 
   // If theres no discriminatorKey we can just call the original method
