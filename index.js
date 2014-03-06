@@ -64,7 +64,7 @@ Model.prototype.init = function(doc, query, fn) {
       var newFn = function() {
         // this is pretty ugly, but we need to run the code below before the callback
         process.nextTick(function() {
-          fn.apply(this, arguments);
+          if(fn) fn.apply(this, arguments);
         });
       }
       var modelInstance = new model();
