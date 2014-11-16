@@ -19,6 +19,14 @@ Schema.prototype.extend = function(obj, options) {
     }
     k[1] = args;
   });
+  // Fix validators RegExps
+  Object.keys(this.paths).forEach(function(k) {
+    this.paths[k].validators.forEach(function (validator, index) {
+        if (validator[0] instanceof RegExp) {
+            newSchema.paths[k].validators[index][0] = validator[0];
+        }
+    });
+  }, this);
 
   // Override the existing options with any newly supplied ones
   for(var k in options) {
