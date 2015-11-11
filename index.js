@@ -6,6 +6,8 @@ var mongoose = require('mongoose'),
 var Schema = mongoose.Schema,
     Model = mongoose.Model;
 
+var Reflect = require('harmony-reflect');
+
 /**
  * Add a new function to the schema prototype to create a new schema by extending an existing one
  */
@@ -13,13 +15,30 @@ Schema.prototype.extend = function(obj, options) {
   // Deep clone the existing schema so we can add without changing it
   var newSchema = owl.deepCopy(this);
 
-  // Fix for callQueue arguments, todo: fix clone implementation
-  newSchema.callQueue.forEach(function(k) {
-    var args = [];
-    for(var i in k[1]) {
-      args.push(k[1][i]);
+  newSchema._callQueue = [];
+
+  var that = this;
+
+  newSchema.callQueue = new Proxy(newSchema._callQueue, {
+    get: function(target, property, receiver) {
+      switch (property) {
+      case 'length':
+        return target.length + that.callQueue.length;
+      case 'toJSON':
+        return () => target.concat(that.callQueue);
+      case 'push':
+        return (e) => target.push(e);
+        break;
+      case 'reduce':
+        return Array.prototype.reduce.bind(target.concat(that.callQueue));
+      default:
+        if(isNaN(property)) {
+          return target[property];
+        } else {
+          return that.callQueue.concat(target)[property];
+        }
+      }
     }
-    k[1] = args;
   });
 
   // Fix validators RegExps
