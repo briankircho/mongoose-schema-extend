@@ -4,7 +4,7 @@
   "description": "mongoose schema inheritance and discriminator key extension",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "node ./node_modules/.bin/grunt test"
   },
   "homepage": "https://github.com/briankircho/mongoose-schema-extend",
   "repository": {
