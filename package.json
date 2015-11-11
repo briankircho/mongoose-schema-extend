@@ -1,6 +1,6 @@
 {
   "name": "mongoose-schema-extend",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "mongoose schema inheritance and discriminator key extension",
   "main": "index.js",
   "scripts": {
@@ -22,15 +22,20 @@
   "contributors": [
     { "name": "Brian Kirchoff", "email": "briankircho@gmail.com" },
     { "name": "Ajay Sabhaney", "email": "ajay@mothercreative.com" },
-    { "name": "Nicholas Calugar", "email" : "njcalugar@gmail.com" }
+    { "name": "Nicholas Calugar", "email" : "njcalugar@gmail.com" },
+    { "name": "Luis Sieira", "email" : "luis.sieira@spacebar.fr" }
   ],
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "dependencies": {
     "owl-deepcopy": "~0.0.1"
   },
   "devDependencies": {
-    "mocha": "~1.3.2",
-    "should": "~1.1.0",
-    "mongoose": "~3.5.7"
+    "glob": "^5.0.15",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-mocha-test": "^0.12.7",
+    "mocha": "^2.3.3",
+    "mongoose": "^4.2.4",
+    "should": "~1.1.0"
   }
 }

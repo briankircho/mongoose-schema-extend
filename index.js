@@ -1,3 +1,5 @@
+'use strict';
+
 var mongoose = require('mongoose'),
     owl = require('owl-deepcopy');
 
@@ -20,10 +22,41 @@ Schema.prototype.extend = function(obj, options) {
     k[1] = args;
   });
 
+  // Fix validators RegExps
+  Object.keys(this.paths).forEach(function(k) {
+    this.paths[k].validators.forEach(function (validator, index) {
+        if (validator.validator instanceof RegExp) {
+            newSchema.paths[k].validators[index].validator = validator.validator;
+        }
+    });
+  }, this);
+
   // Override the existing options with any newly supplied ones
   for(var k in options) {
     newSchema.options[k] = options[k];
   }
+
+  // Change the unique fields to compound discriminator/field unique indexes
+  // using a 2dSphere [HACK ALERT] to allow duplicates or missing fields on subSchemas where
+  // the option has not been specified
+  var uniqueFields = [];
+
+  for(var k in obj) {
+    if(obj[k].unique) {
+      obj[k].unique = false;
+      uniqueFields.push(k);
+    }
+  }
+
+  uniqueFields.forEach(function (field) {
+    obj[field + '_unique'] = { type: {type: String, enum: "Point", default: "Point"}, coordinates: { type: [Number], default: [0,0] } };
+
+    var index = {};
+    index[newSchema.options.discriminatorKey] = 1;
+    index[field] = 1;
+    index[field + '_unique'] = '2dsphere';
+    newSchema.index(index, { unique: true });
+  });
 
   // This adds all the new schema fields
   newSchema.add(obj);
@@ -51,7 +84,7 @@ Schema.prototype.extend = function(obj, options) {
 /**
  * Wrap the model init to set the prototype based on the discriminator field
  */
-var oldInit = Model.prototype.init;
+var _init = Model.prototype.init;
 Model.prototype.init = function(doc, query, fn) {
   var key = this.schema.options['discriminatorKey'];
   if(key) {
@@ -69,12 +102,12 @@ Model.prototype.init = function(doc, query, fn) {
       }
       var modelInstance = new model();
       this.schema = model.schema;
-      var obj = oldInit.call(this, doc, query, newFn);
+      var obj = _init.call(this, doc, query, newFn);
       obj.__proto__ = model.prototype;
       return obj;
     }
   }
 
   // If theres no discriminatorKey we can just call the original method
-  return oldInit.apply(this, arguments);
+  return _init.apply(this, arguments);
 }
