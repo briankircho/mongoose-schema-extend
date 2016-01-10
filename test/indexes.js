@@ -59,6 +59,28 @@ describe('schema discriminator key tests', function() {
     });
   });
 
+  it('Should allow two vehicles of the same brand with different model', function (done) {
+    var fordSierra = new fixtures.Ford({
+      year : 1986,
+      model : 'sierra'
+    });
+
+    var anotherFordSierra = new fixtures.Ford({
+      year : 2030,
+      model : 'planet'
+    });
+
+    fordSierra.save(function(err) {
+      should.not.exist(err);
+      fordSierra._type.should.equal('ford');
+
+      anotherFordSierra.save(function(err) {
+        should.not.exist(err);
+        done();
+      })
+    });
+  });
+
   it('Should allow two vehicles of the same obscure brand with the same model', function (done) {
     var fordSierra = new fixtures.Ford({
       year : 1986,

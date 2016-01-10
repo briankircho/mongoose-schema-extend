@@ -4,7 +4,7 @@
   "description": "mongoose schema inheritance and discriminator key extension",
   "main": "index.js",
   "scripts": {
-    "test": "node ./node_modules/.bin/grunt test"
+    "test": "node --harmony_proxies ./node_modules/.bin/grunt test"
   },
   "homepage": "https://github.com/briankircho/mongoose-schema-extend",
   "repository": {
@@ -20,13 +20,26 @@
   ],
   "author": "Brian Kirchoff <briankircho@gmail.com>",
   "contributors": [
-    { "name": "Brian Kirchoff", "email": "briankircho@gmail.com" },
-    { "name": "Ajay Sabhaney", "email": "ajay@mothercreative.com" },
-    { "name": "Nicholas Calugar", "email" : "njcalugar@gmail.com" },
-    { "name": "Luis Sieira", "email" : "luis.sieira@spacebar.fr" }
+    {
+      "name": "Brian Kirchoff",
+      "email": "briankircho@gmail.com"
+    },
+    {
+      "name": "Ajay Sabhaney",
+      "email": "ajay@mothercreative.com"
+    },
+    {
+      "name": "Nicholas Calugar",
+      "email": "njcalugar@gmail.com"
+    },
+    {
+      "name": "Luis Sieira",
+      "email": "luis.sieira@spacebar.fr"
+    }
   ],
   "license": "BSD-3-Clause",
   "dependencies": {
+    "harmony-reflect": "^1.4.2",
     "owl-deepcopy": "~0.0.1"
   },
   "devDependencies": {
