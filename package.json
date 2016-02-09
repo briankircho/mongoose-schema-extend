@@ -37,7 +37,7 @@
       "email": "luis.sieira@spacebar.fr"
     }
   ],
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "dependencies": {
     "harmony-reflect": "^1.4.2",
     "owl-deepcopy": "~0.0.1"
