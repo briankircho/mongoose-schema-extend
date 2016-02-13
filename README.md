@@ -2,6 +2,11 @@
 
 Implements schema inheritance and an optional discriminator key which is useful for storing different types of related documents in a collection and fetching them with the correct model type.
 
+# Notice
+
+From version 0.2.1 mongoose-schema-extend is using harmony proxies. You will need to add the flag
+--harmony_proxies to your start command if you're using it, or use a previous version.
+
 # Usage
 
 Install via NPM
