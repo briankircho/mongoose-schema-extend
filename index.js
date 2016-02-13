@@ -44,8 +44,8 @@ Schema.prototype.extend = function(obj, options) {
   // Fix validators RegExps
   Object.keys(this.paths).forEach(function(k) {
     this.paths[k].validators.forEach(function (validator, index) {
-        if (validator.regexp instanceof RegExp) {
-            newSchema.paths[k].validators[index].regexp = validator.regexp;
+        if (validator.validator instanceof RegExp) {
+            newSchema.paths[k].validators[index].validator = validator.validator;
         }
     });
   }, this);
