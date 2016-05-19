@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    owl = require('owl-deepcopy');
+    cloneDeep = require('lodash.cloneDeep');
 
 var Schema = mongoose.Schema,
     Model = mongoose.Model;
@@ -13,7 +13,7 @@ var Reflect = require('harmony-reflect');
  */
 Schema.prototype.extend = function(obj, options) {
   // Deep clone the existing schema so we can add without changing it
-  var newSchema = owl.deepCopy(this);
+  var newSchema = cloneDeep(this);
 
   newSchema._callQueue = [];
 
@@ -48,7 +48,7 @@ Schema.prototype.extend = function(obj, options) {
             newSchema.paths[k].validators[index].validator = validator.validator;
         }
         if (validator.regexp instanceof RegExp) {
- -            newSchema.paths[k].validators[index].regexp = validator.regexp;
+           newSchema.paths[k].validators[index].regexp = validator.regexp;
         }
     });
   }, this);
