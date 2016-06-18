@@ -32,7 +32,7 @@ Schema.prototype.extend = function(obj, options) {
       case 'reduce':
         return Array.prototype.reduce.bind(target.concat(that.callQueue));
       default:
-        if(isNaN(property)) {
+        if(typeof property !== 'symbol' && isNaN(property)) {
           return target[property];
         } else {
           return that.callQueue.concat(target)[property];
