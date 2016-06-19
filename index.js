@@ -48,7 +48,7 @@ Schema.prototype.extend = function(obj, options) {
             newSchema.paths[k].validators[index].validator = validator.validator;
         }
         if (validator.regexp instanceof RegExp) {
- -            newSchema.paths[k].validators[index].regexp = validator.regexp;
+             newSchema.paths[k].validators[index].regexp = validator.regexp;
         }
     });
   }, this);
