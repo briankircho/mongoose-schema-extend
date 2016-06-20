@@ -95,12 +95,12 @@ Vehicle.find({}, function(err, vehicles) {
 
 # Tests
 
-To run the tests install mocha
+To run the tests install dependencies
 
-    npm install mocha -g
+    npm install
 
 and then run
 
-    mocha
+    npm test
 
 

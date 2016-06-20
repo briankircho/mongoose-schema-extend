@@ -32,7 +32,7 @@ Schema.prototype.extend = function(obj, options) {
       case 'reduce':
         return Array.prototype.reduce.bind(target.concat(that.callQueue));
       default:
-        if(isNaN(property)) {
+        if (typeof property !== 'symbol' && isNaN(property)) {
           return target[property];
         } else {
           return that.callQueue.concat(target)[property];
@@ -45,10 +45,10 @@ Schema.prototype.extend = function(obj, options) {
   Object.keys(this.paths).forEach(function(k) {
     this.paths[k].validators.forEach(function (validator, index) {
         if (validator.validator instanceof RegExp) {
-            newSchema.paths[k].validators[index].validator = validator.validator;
+          newSchema.paths[k].validators[index].validator = validator.validator;
         }
         if (validator.regexp instanceof RegExp) {
-             newSchema.paths[k].validators[index].regexp = validator.regexp;
+          newSchema.paths[k].validators[index].regexp = validator.regexp;
         }
     });
   }, this);
