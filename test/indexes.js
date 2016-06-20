@@ -17,11 +17,13 @@ describe('schema discriminator key tests', function() {
   it('Should allow two different brand vehicles with the same model', function (done) {
     var fordSierra = new fixtures.Ford({
       year : 1986,
+      doors: 5,
       model : 'sierra'
     });
 
     var hondaSierra = new fixtures.Honda({
       year : 2030,
+      doors: 3,
       model : 'sierra'
     });
 
@@ -40,11 +42,13 @@ describe('schema discriminator key tests', function() {
   it('Should not allow two vehicles of the same brand with the same model', function (done) {
     var fordSierra = new fixtures.Ford({
       year : 1986,
+      doors: 5,
       model : 'sierra'
     });
 
     var anotherFordSierra = new fixtures.Ford({
       year : 2030,
+      doors: 3,
       model : 'sierra'
     });
 
@@ -62,11 +66,13 @@ describe('schema discriminator key tests', function() {
   it('Should allow two vehicles of the same brand with different model', function (done) {
     var fordSierra = new fixtures.Ford({
       year : 1986,
+      doors: 5,
       model : 'sierra'
     });
 
     var anotherFordSierra = new fixtures.Ford({
       year : 2030,
+      doors: 5,
       model : 'planet'
     });
 
@@ -84,16 +90,19 @@ describe('schema discriminator key tests', function() {
   it('Should allow two vehicles of the same obscure brand with the same model', function (done) {
     var fordSierra = new fixtures.Ford({
       year : 1986,
+      doors: 5,
       model : 'sierra'
     });
 
     var veridianDynamics1 = new fixtures.VeridianDynamics({
       year : 1986,
+      doors: 56,
       model : 'sierra'
     });
 
     var veridianDynamics2 = new fixtures.VeridianDynamics({
       year : 2030,
+      doors: 3.14159,
       model : 'sierra'
     });
 
@@ -125,11 +134,13 @@ describe('schema discriminator key tests', function() {
 
   it('Should allow to insert objects without a field that\'s required by a sibling schema', function(done) {
     var fordSierra = new fixtures.Ford({
-      model : 'sierra'
+      model : 'sierra',
+      doors: 5
     });
 
     var veridianDynamics1 = new fixtures.VeridianDynamics({
-      model : 'sierra'
+      model : 'sierra',
+      doors: 5
     });
 
     fordSierra.save(function(err) {
