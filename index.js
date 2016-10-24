@@ -98,6 +98,17 @@ Schema.prototype.extend = function(obj, options) {
       }
       next();
     });
+
+    var patchDiscriminatorKey = function() {
+      this._conditions[key] = this.model.modelName;
+    };
+
+    newSchema.pre('find', patchDiscriminatorKey);
+    newSchema.pre('findOne', patchDiscriminatorKey);
+    newSchema.pre('count', patchDiscriminatorKey);
+    newSchema.pre('findOneAndRemove', patchDiscriminatorKey);
+    newSchema.pre('findOneAndUpdate', patchDiscriminatorKey);
+    newSchema.pre('update', patchDiscriminatorKey);
   }
 
   return newSchema;
