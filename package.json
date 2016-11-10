@@ -40,7 +40,7 @@
   "license": "MIT",
   "dependencies": {
     "harmony-reflect": "^1.4.2",
-    "owl-deepcopy": "~0.0.1"
+    "owl-deepcopy": "~0.0.6"
   },
   "devDependencies": {
     "glob": "^5.0.15",
