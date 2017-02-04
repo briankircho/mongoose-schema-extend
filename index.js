@@ -41,6 +41,20 @@ Schema.prototype.extend = function(obj, options) {
     }
   });
 
+  var that = this;
+
+  // Add new added parent schema hooks to the newSchema
+  Object.observe(that.callQueue, function(changes) {
+    // Hook format in the callQueue is -> [ 'pre', { '0': 'save', '1': [Function] } ]
+    changes.forEach(function(change) {
+      var hookType = change.object[ change.name ][0],
+          eventType = change.object[ change.name ][1]['0'],
+          fn = change.object[ change.name ][1]['1'];
+
+          newSchema[hookType](eventType, fn);
+    });
+  }, ["add"]);
+
   // Fix validators RegExps
   Object.keys(this.paths).forEach(function(k) {
     this.paths[k].validators.forEach(function (validator, index) {
