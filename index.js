@@ -19,6 +19,7 @@ Schema.prototype.extend = function(obj, options) {
 
   var that = this;
 
+  newSchema.parentSchema = that;
   newSchema.callQueue = new Proxy(newSchema._callQueue, {
     get: function(target, property, receiver) {
       switch (property) {
