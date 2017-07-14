@@ -35,7 +35,7 @@ Schema.prototype.extend = function(obj, options) {
         if (typeof property !== 'symbol' && isNaN(property)) {
           return target[property];
         } else {
-          return that.callQueue.concat(target)[property];
+          return that.callQueue.concat(target[0]);
         }
       }
     }
