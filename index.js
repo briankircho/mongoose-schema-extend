@@ -28,9 +28,10 @@ Schema.prototype.extend = function(obj, options) {
         return () => target.concat(that.callQueue);
       case 'push':
         return (e) => target.push(e);
-        break;
       case 'reduce':
         return Array.prototype.reduce.bind(target.concat(that.callQueue));
+      case 'unshift':
+        return (e) => target.unshift(e);
       default:
         if (typeof property !== 'symbol' && isNaN(property)) {
           return target[property];
