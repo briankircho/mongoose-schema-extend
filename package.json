@@ -47,5 +47,6 @@
     "mocha": "2.3.3",
     "mongoose": "4.2.4",
     "should": "1.1.0"
-  }
+  },
+  "types": "build/index.d.ts"
 }
