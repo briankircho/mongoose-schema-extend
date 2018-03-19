@@ -1,7 +1,7 @@
 import { Schema, Model } from 'mongoose';
 import * as owl from 'owl-deepcopy';
 
-export function extend(obj, source: Schema, options) {
+export function extend(obj, source, options) {
   // Deep clone the existing schema so we can add without changing it
   var newSchema = owl.deepCopy(source);
 
@@ -29,8 +29,8 @@ export function extend(obj, source: Schema, options) {
   });
 
   // Fix validators RegExps
-  Object.keys(this.paths).forEach(function (k) {
-    this.paths[k].validators.forEach(function (validator, index) {
+  Object.keys(source.paths).forEach(function (k) {
+    source.paths[k].validators.forEach(function (validator, index) {
       if (validator.validator instanceof RegExp) {
         newSchema.paths[k].validators[index].validator = validator.validator;
       }
@@ -38,7 +38,7 @@ export function extend(obj, source: Schema, options) {
         newSchema.paths[k].validators[index].regexp = validator.regexp;
       }
     });
-  }, this);
+  }, source);
 
   // Override the existing options with any newly supplied ones
   for (var k in options) {
