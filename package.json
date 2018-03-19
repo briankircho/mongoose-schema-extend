@@ -2,7 +2,7 @@
   "name": "mongoose-schema-extend",
   "version": "0.2.2",
   "description": "mongoose schema inheritance and discriminator key extension",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "node --harmony_proxies ./node_modules/.bin/grunt test"
   },
