@@ -1,32 +1,28 @@
-import { Schema, Model } from 'mongoose',
+import { Schema, Model } from 'mongoose';
 import * as owl from 'owl-deepcopy';
 
-import Reflect from 'harmony-reflect';
-
-export function extend(obj, options) {
+export function extend(obj, source: Schema, options) {
   // Deep clone the existing schema so we can add without changing it
-  var newSchema = owl.deepCopy(this);
+  var newSchema = owl.deepCopy(source);
 
   newSchema._callQueue = [];
-
-  var that = this;
 
   newSchema.callQueue = new Proxy(newSchema._callQueue, {
     get: function (target, property, receiver) {
       switch (property) {
         case 'length':
-          return target.length + that.callQueue.length;
+          return target.length + source.callQueue.length;
         case 'toJSON':
-          return () => target.concat(that.callQueue);
+          return () => target.concat(source.callQueue);
         case 'push':
           return (e) => target.push(e);
         case 'reduce':
-          return Array.prototype.reduce.bind(target.concat(that.callQueue));
+          return Array.prototype.reduce.bind(target.concat(source.callQueue));
         default:
           if (typeof property !== 'symbol' && typeof property === 'number' && isNaN(property)) {
             return target[property];
           } else {
-            return that.callQueue.concat(target)[property];
+            return source.callQueue.concat(target)[property];
           }
       }
     }
