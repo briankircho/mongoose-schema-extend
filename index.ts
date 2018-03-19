@@ -1,4 +1,4 @@
-import { Schema, Model } from 'mongoose';
+import { Model, Document } from 'mongoose';
 import * as owl from 'owl-deepcopy';
 
 export function extend(obj, source, options) {
@@ -8,7 +8,7 @@ export function extend(obj, source, options) {
   newSchema._callQueue = [];
 
   newSchema.callQueue = new Proxy(newSchema._callQueue, {
-    get: function (target, property, receiver) {
+    get: function (target, property) {
       switch (property) {
         case 'length':
           return target.length + source.callQueue.length;
@@ -48,7 +48,7 @@ export function extend(obj, source, options) {
   // Change the unique fields to compound discriminator/field unique indexes
   // using a 2dSphere [HACK ALERT] to allow duplicates or missing fields on subSchemas where
   // the option has not been specified
-  var uniqueFields = [];
+  var uniqueFields: string[] = [];
 
   for (var k in obj) {
     if (obj[k].unique) {
@@ -79,7 +79,7 @@ export function extend(obj, source, options) {
 
     // When new documents are saved, include the model name in the discriminatorField
     // if it is not set already.
-    newSchema.pre('save', function (next) {
+    newSchema.pre('save', function (this: Model<Document>, next) {
       if (this[key] === null || this[key] === undefined) {
         this[key] = this.constructor.modelName;
       }

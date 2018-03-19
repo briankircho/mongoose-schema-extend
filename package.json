@@ -42,10 +42,8 @@
     "owl-deepcopy": "0.0.6"
   },
   "devDependencies": {
+    "@types/mongoose": "5.0.7",
     "glob": "5.0.15",
-    "grunt": "0.4.5",
-    "grunt-cli": "0.1.13",
-    "grunt-mocha-test": "0.12.7",
     "mocha": "2.3.3",
     "mongoose": "4.2.4",
     "should": "1.1.0"
