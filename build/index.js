@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const owl = require("owl-deepcopy");
+const lodash_1 = require("lodash");
 function extend(obj, source, options) {
     // Deep clone the existing schema so we can add without changing it
-    var newSchema = owl.deepCopy(source);
+    var newSchema = lodash_1.cloneDeep(source);
     newSchema._callQueue = [];
     newSchema.callQueue = new Proxy(newSchema._callQueue, {
         get: function (target, property) {
@@ -52,7 +52,10 @@ function extend(obj, source, options) {
         }
     }
     uniqueFields.forEach(function (field) {
-        obj[field + '_unique'] = { type: { type: String, enum: "Point", default: "Point" }, coordinates: { type: [Number], default: [0, 0] } };
+        obj[field + '_unique'] = {
+            type: { type: String, enum: "Point", default: "Point" },
+            coordinates: { type: [Number], default: [0, 0] }
+        };
         var index = {};
         index[newSchema.options.discriminatorKey] = 1;
         index[field] = 1;

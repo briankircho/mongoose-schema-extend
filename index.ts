@@ -1,9 +1,9 @@
 import { Model, Document } from 'mongoose';
-import * as owl from 'owl-deepcopy';
+import { cloneDeep } from 'lodash';
 
 export function extend(obj, source, options) {
   // Deep clone the existing schema so we can add without changing it
-  var newSchema = owl.deepCopy(source);
+  var newSchema = cloneDeep(source);
 
   newSchema._callQueue = [];
 
@@ -58,7 +58,10 @@ export function extend(obj, source, options) {
   }
 
   uniqueFields.forEach(function (field) {
-    obj[field + '_unique'] = { type: { type: String, enum: "Point", default: "Point" }, coordinates: { type: [Number], default: [0, 0] } };
+    obj[field + '_unique'] = {
+      type: { type: String, enum: "Point", default: "Point" },
+      coordinates: { type: [Number], default: [0, 0] }
+    };
 
     var index = {};
     index[newSchema.options.discriminatorKey] = 1;

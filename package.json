@@ -3,9 +3,6 @@
   "version": "0.2.2",
   "description": "mongoose schema inheritance and discriminator key extension",
   "main": "build/index.js",
-  "scripts": {
-    "test": "node --harmony_proxies ./node_modules/.bin/grunt test"
-  },
   "homepage": "https://github.com/briankircho/mongoose-schema-extend",
   "repository": {
     "type": "git",
@@ -39,13 +36,12 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "owl-deepcopy": "0.0.6"
+    "lodash": "4.17.11"
   },
   "devDependencies": {
-    "@types/mongoose": "5.0.7",
+    "@types/mongoose": "5.5.6",
     "glob": "5.0.15",
-    "mocha": "2.3.3",
-    "mongoose": "4.2.4",
+    "mongoose": "5.6.0",
     "should": "1.1.0"
   },
   "types": "build/index.d.ts"
